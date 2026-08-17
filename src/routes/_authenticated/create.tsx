@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/create")({
       },
     ],
   }),
-  component: CreateSubject;
+  component: CreateSubject,
 });
 
 function CreateSubject() {
