@@ -17,6 +17,7 @@ import { Route as AuthenticatedGardenRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedSubjectSubjectIdRouteImport } from './routes/_authenticated/subject.$subjectId'
+import { Route as AuthenticatedTopicTopicIdRouteImport } from './routes/_authenticated/topic.$topicId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,12 @@ const AuthenticatedSubjectSubjectIdRoute =
     path: '/subject/$subjectId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedTopicTopicIdRoute =
+  AuthenticatedTopicTopicIdRouteImport.update({
+    id: '/topic/$topicId',
+    path: '/topic/$topicId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
+  '/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,6 +84,7 @@ export interface FileRoutesByTo {
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
+  '/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,6 +96,7 @@ export interface FileRoutesById {
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
+  '/_authenticated/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/onboarding'
     | '/subject/$subjectId'
+    | '/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/onboarding'
     | '/subject/$subjectId'
+    | '/topic/$topicId'
   id:
     | '__root__'
     | '/'
@@ -117,6 +129,7 @@ export interface FileRouteTypes {
     | '/_authenticated/home'
     | '/_authenticated/onboarding'
     | '/_authenticated/subject/$subjectId'
+    | '/_authenticated/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSubjectSubjectIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/topic/$topicId': {
+      id: '/_authenticated/topic/$topicId'
+      path: '/topic/$topicId'
+      fullPath: '/topic/$topicId'
+      preLoaderRoute: typeof AuthenticatedTopicTopicIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -192,6 +212,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedSubjectSubjectIdRoute: typeof AuthenticatedSubjectSubjectIdRoute
+  AuthenticatedTopicTopicIdRoute: typeof AuthenticatedTopicTopicIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -200,6 +221,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedSubjectSubjectIdRoute: AuthenticatedSubjectSubjectIdRoute,
+  AuthenticatedTopicTopicIdRoute: AuthenticatedTopicTopicIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
