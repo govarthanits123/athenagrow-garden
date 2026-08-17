@@ -17,6 +17,7 @@ import { Route as AuthenticatedCreateRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedGardenRouteImport } from './routes/_authenticated/garden'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
 import { Route as AuthenticatedSubjectSubjectIdRouteImport } from './routes/_authenticated/subject.$subjectId'
 import { Route as AuthenticatedTopicTopicIdRouteImport } from './routes/_authenticated/topic.$topicId'
@@ -60,6 +61,11 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedProgressRoute = AuthenticatedProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
   '/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
   '/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/_authenticated/garden': typeof AuthenticatedGardenRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
   '/_authenticated/subject/$subjectId': typeof AuthenticatedSubjectSubjectIdRoute
   '/_authenticated/topic/$topicId': typeof AuthenticatedTopicTopicIdRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/garden'
     | '/home'
     | '/onboarding'
+    | '/profile'
     | '/progress'
     | '/subject/$subjectId'
     | '/topic/$topicId'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/garden'
     | '/home'
     | '/onboarding'
+    | '/profile'
     | '/progress'
     | '/subject/$subjectId'
     | '/topic/$topicId'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/_authenticated/garden'
     | '/_authenticated/home'
     | '/_authenticated/onboarding'
+    | '/_authenticated/profile'
     | '/_authenticated/progress'
     | '/_authenticated/subject/$subjectId'
     | '/_authenticated/topic/$topicId'
@@ -220,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/progress': {
       id: '/_authenticated/progress'
       path: '/progress'
@@ -250,6 +269,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGardenRoute: typeof AuthenticatedGardenRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
   AuthenticatedSubjectSubjectIdRoute: typeof AuthenticatedSubjectSubjectIdRoute
   AuthenticatedTopicTopicIdRoute: typeof AuthenticatedTopicTopicIdRoute
@@ -261,6 +281,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGardenRoute: AuthenticatedGardenRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
   AuthenticatedSubjectSubjectIdRoute: AuthenticatedSubjectSubjectIdRoute,
   AuthenticatedTopicTopicIdRoute: AuthenticatedTopicTopicIdRoute,
