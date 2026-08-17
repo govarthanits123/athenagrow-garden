@@ -106,7 +106,7 @@ export function buildRoadmap(topicTitles: string[]): RoadmapNode[] {
       difficulty: i < 2 ? "Easy" : i < titles.length - 2 ? "Medium" : "Hard",
       est_minutes: 25,
     });
-    const activity = activities[i % activities.length];
+    const activity = activities[i % activities.length] ?? "quiz";
     const labels: Record<string, string> = {
       summary: `Topic Summary: ${title}`,
       quiz: `Quiz Challenge: ${title}`,
