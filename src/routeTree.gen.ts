@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAthenaRouteImport } from './routes/_authenticated/athena'
 import { Route as AuthenticatedCreateRouteImport } from './routes/_authenticated/create'
+import { Route as AuthenticatedDiscoverRouteImport } from './routes/_authenticated/discover'
 import { Route as AuthenticatedGardenRouteImport } from './routes/_authenticated/garden'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
@@ -44,6 +45,11 @@ const AuthenticatedAthenaRoute = AuthenticatedAthenaRouteImport.update({
 const AuthenticatedCreateRoute = AuthenticatedCreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDiscoverRoute = AuthenticatedDiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGardenRoute = AuthenticatedGardenRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/athena': typeof AuthenticatedAthenaRoute
   '/create': typeof AuthenticatedCreateRoute
+  '/discover': typeof AuthenticatedDiscoverRoute
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/athena': typeof AuthenticatedAthenaRoute
   '/create': typeof AuthenticatedCreateRoute
+  '/discover': typeof AuthenticatedDiscoverRoute
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/athena': typeof AuthenticatedAthenaRoute
   '/_authenticated/create': typeof AuthenticatedCreateRoute
+  '/_authenticated/discover': typeof AuthenticatedDiscoverRoute
   '/_authenticated/garden': typeof AuthenticatedGardenRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/athena'
     | '/create'
+    | '/discover'
     | '/garden'
     | '/home'
     | '/onboarding'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/athena'
     | '/create'
+    | '/discover'
     | '/garden'
     | '/home'
     | '/onboarding'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/athena'
     | '/_authenticated/create'
+    | '/_authenticated/discover'
     | '/_authenticated/garden'
     | '/_authenticated/home'
     | '/_authenticated/onboarding'
@@ -209,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof AuthenticatedCreateRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/discover': {
+      id: '/_authenticated/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof AuthenticatedDiscoverRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/garden': {
@@ -266,6 +285,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAthenaRoute: typeof AuthenticatedAthenaRoute
   AuthenticatedCreateRoute: typeof AuthenticatedCreateRoute
+  AuthenticatedDiscoverRoute: typeof AuthenticatedDiscoverRoute
   AuthenticatedGardenRoute: typeof AuthenticatedGardenRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
@@ -278,6 +298,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAthenaRoute: AuthenticatedAthenaRoute,
   AuthenticatedCreateRoute: AuthenticatedCreateRoute,
+  AuthenticatedDiscoverRoute: AuthenticatedDiscoverRoute,
   AuthenticatedGardenRoute: AuthenticatedGardenRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
