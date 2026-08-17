@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAthenaRouteImport } from './routes/_authenticated/athena'
 import { Route as AuthenticatedCreateRouteImport } from './routes/_authenticated/create'
 import { Route as AuthenticatedGardenRouteImport } from './routes/_authenticated/garden'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
@@ -32,6 +33,11 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAthenaRoute = AuthenticatedAthenaRouteImport.update({
+  id: '/athena',
+  path: '/athena',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCreateRoute = AuthenticatedCreateRouteImport.update({
   id: '/create',
@@ -69,6 +75,7 @@ const AuthenticatedTopicTopicIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/athena': typeof AuthenticatedAthenaRoute
   '/create': typeof AuthenticatedCreateRoute
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/athena': typeof AuthenticatedAthenaRoute
   '/create': typeof AuthenticatedCreateRoute
   '/garden': typeof AuthenticatedGardenRoute
   '/home': typeof AuthenticatedHomeRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/athena': typeof AuthenticatedAthenaRoute
   '/_authenticated/create': typeof AuthenticatedCreateRoute
   '/_authenticated/garden': typeof AuthenticatedGardenRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/athena'
     | '/create'
     | '/garden'
     | '/home'
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/athena'
     | '/create'
     | '/garden'
     | '/home'
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/athena'
     | '/_authenticated/create'
     | '/_authenticated/garden'
     | '/_authenticated/home'
@@ -160,6 +172,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/athena': {
+      id: '/_authenticated/athena'
+      path: '/athena'
+      fullPath: '/athena'
+      preLoaderRoute: typeof AuthenticatedAthenaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/create': {
       id: '/_authenticated/create'
@@ -207,6 +226,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAthenaRoute: typeof AuthenticatedAthenaRoute
   AuthenticatedCreateRoute: typeof AuthenticatedCreateRoute
   AuthenticatedGardenRoute: typeof AuthenticatedGardenRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
@@ -216,6 +236,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAthenaRoute: AuthenticatedAthenaRoute,
   AuthenticatedCreateRoute: AuthenticatedCreateRoute,
   AuthenticatedGardenRoute: AuthenticatedGardenRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
