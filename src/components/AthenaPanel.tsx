@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export type AthenaContext = {
-  learner?: string;
-  subject?: string;
-  topic?: string;
-  roadmap?: string;
-  material?: string;
-  progress?: string;
+  learner?: string | undefined;
+  subject?: string | undefined;
+  topic?: string | undefined;
+  roadmap?: string | undefined;
+  material?: string | undefined;
+  progress?: string | undefined;
 };
 
 type Msg = { role: "user" | "assistant"; content: string };
