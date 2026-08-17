@@ -135,11 +135,11 @@ export function subjectProgress(subject: SubjectWithTopics) {
 }
 
 export type CreateSubjectInput = {
-  name?: string;
+  name?: string | undefined;
   syllabus: string;
-  syllabusFileName?: string;
-  notes?: { name: string; text: string }[];
-  onStage?: (stage: string) => void;
+  syllabusFileName?: string | undefined;
+  notes?: { name: string; text: string }[] | undefined;
+  onStage?: ((stage: string) => void) | undefined;
 };
 
 export type CreateSubjectResult = {
