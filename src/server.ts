@@ -2,6 +2,11 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import {
+  askAthenaServer,
+  generateLearningPathServer,
+  generateQuizServer,
+} from "./lib/ai.functions";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -44,9 +49,46 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+function jsonError(message: string, status = 400) {
+  return Response.json({ error: message }, { status });
+}
+
+async function handleAthenaApiRequest(request: Request): Promise<Response> {
+  if (request.method !== "POST") {
+    return jsonError("Method not allowed", 405);
+  }
+
+  try {
+    const body = (await request.json()) as {
+      action?: string;
+      data?: unknown;
+    };
+
+    switch (body.action) {
+      case "askAthena":
+        return Response.json(await askAthenaServer(body.data as any));
+      case "generateLearningPath":
+        return Response.json(await generateLearningPathServer(body.data as any));
+      case "generateQuiz":
+        return Response.json(await generateQuizServer(body.data as any));
+      default:
+        return jsonError("Unknown Athena action.", 400);
+    }
+  } catch (error) {
+    console.error("[Athena API]", error);
+    const message = error instanceof Error ? error.message : "Athena request failed.";
+    return jsonError(message, 500);
+  }
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (url.pathname === "/api/athena") {
+        return await handleAthenaApiRequest(request);
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

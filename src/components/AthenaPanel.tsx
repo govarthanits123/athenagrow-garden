@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Loader2, RotateCcw, Send, Sparkles, X } from "lucide-react";
-import { useServerFn } from "@tanstack/react-start";
-import { askAthena } from "@/lib/ai.functions";
+import { askAthenaClient } from "@/lib/athena-api";
 import { AthenaAvatar } from "@/components/garden/AthenaAvatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -36,7 +35,6 @@ export function AthenaConversation({
   className?: string;
   compact?: boolean;
 }) {
-  const ask = useServerFn(askAthena);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
@@ -53,7 +51,7 @@ export function AthenaConversation({
     setError(null);
     lastSent.current = history;
     try {
-      const res = await ask({ data: { messages: history, context } });
+      const res = await askAthenaClient({ messages: history, context });
       setMessages([...history, { role: "assistant", content: res.answer }]);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Athena could not respond.");

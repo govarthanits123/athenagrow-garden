@@ -1,7 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { generateLearningPathClient } from "@/lib/athena-api";
 import { buildRoadmap, detectSubjectName, fallbackRoadmap, parseTopics } from "./roadmap";
-import { generateLearningPath } from "./ai.functions";
 
 export type Profile = {
   id: string;
@@ -167,12 +167,10 @@ export async function createSubjectFromMaterial(
 
   try {
     stage("Understanding your learning material...");
-    const ai = await generateLearningPath({
-      data: {
-        syllabus,
-        notes: notes.map((n) => n.text).join("\n\n").slice(0, 20000) || undefined,
-        subjectHint: input.name?.trim() || undefined,
-      },
+    const ai = await generateLearningPathClient({
+      syllabus,
+      notes: notes.map((n) => n.text).join("\n\n").slice(0, 20000) || undefined,
+      subjectHint: input.name?.trim() || undefined,
     });
     if (ai.topics.length) {
       if (!input.name?.trim() && ai.subject) subjectName = ai.subject;
